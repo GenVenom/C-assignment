@@ -11,12 +11,11 @@ struct book {
 	float price;
 };
 
-void printMostExpensive(struct book books[]);
-
 int main() {
 	struct book books[5];
-	int i;
+	int i, mostExpensiveIndex;
 
+	/* Getting info about books from the user */
 	for (i = 0; i < 5; i++) {
 		printf("=== For book #%d ===\n", i+1);
 		printf("Name of the book? ");
@@ -27,25 +26,21 @@ int main() {
 		scanf("%f", &books[i].price);
 		getchar();
 	}
-
 	puts("");
-	printMostExpensive(books);
 
-	return 0;
-}
-
-void printMostExpensive(struct book books[]) {
-	int i, mostExpensiveCost = books[0].price, mostExpensiveIndex = 0;
-
+	/* Finding index of most expensive book */
+	mostExpensiveIndex = 0;
 	for (i = 1; i < 5; i++) {
-		if (books[i].price > mostExpensiveCost) {
-			mostExpensiveCost = books[i].price;
+		if (books[i].price > books[mostExpensiveIndex].price) {
 			mostExpensiveIndex = i;
 		}
 	}
 
+	/* Printing the details of most expensive book */
 	printf("=== Details of most expensive book ===\n");
 	printf("Name: %s\n", books[mostExpensiveIndex].name);
 	printf("Number of pages: %d\n", books[mostExpensiveIndex].pages);
 	printf("Price: %.2f\n", books[mostExpensiveIndex].price);
+
+	return 0;
 }

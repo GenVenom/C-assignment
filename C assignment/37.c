@@ -2,112 +2,65 @@
  * matrices */
 
 #include <stdio.h>
-#include <stdlib.h>
 
-int **createMatrix(int noRow, int noCol);
-void inputMatrix(int **matrixPtr, int noRow, int noCol);
-void matrixSum(int **matrixSumPtr, int **matrix1Ptr, int **matrix2Ptr, int noRow, int noCol);
-void matrixDiff(int **matrixSumPtr, int **matrix1Ptr, int **matrix2Ptr, int noRow, int noCol);
-void printMatrix(int **matrixPtr, int noRow, int noCol);
-void freeMatrixMem(int **matrixPtr, int noRow);
+int main ()
+{
+	int m, n, i, j;
 
-int main() {
-	int i, j;
-	int noRow, noCol, **matrix1Ptr, **matrix2Ptr, **matrixSumPtr, **matrixDiffPtr;
-
+	/* Getting input about no of rows and columns */
 	printf("Enter the number of rows and columns you want to enter: ");
-	scanf("%d %d", &noRow, &noCol);
+	scanf("%d %d", &m, &n);
 
-	matrix1Ptr = createMatrix(noRow, noCol);
-	matrix2Ptr = createMatrix(noRow, noCol);
-	matrixSumPtr = createMatrix(noRow, noCol);
-	matrixDiffPtr = createMatrix(noRow, noCol);
+	int matrix1[m][n], matrix2[m][n], matrixSum[m][n], matrixDiff[m][n];
 
+	/* Filling data in first and second matrixes */
 	puts("For 1st matrix:");
-	inputMatrix(matrix1Ptr, noRow, noCol);
-	puts("For 2nd matrix:");
-	inputMatrix(matrix2Ptr, noRow, noCol);
-
-	matrixSum(matrixSumPtr, matrix1Ptr, matrix2Ptr, noRow, noCol);
-	matrixDiff(matrixDiffPtr, matrix1Ptr, matrix2Ptr, noRow, noCol);
-
-	puts("");
-	puts("Matrix 1:");
-	printMatrix(matrix1Ptr, noRow, noCol);
-	puts("Matrix 2:");
-	printMatrix(matrix2Ptr, noRow, noCol);
-	puts("Sum Matrix:");
-	printMatrix(matrixSumPtr, noRow, noCol);
-	puts("Diff Matrix:");
-	printMatrix(matrixDiffPtr, noRow, noCol);
-
-	freeMatrixMem(matrix1Ptr, noRow);
-	freeMatrixMem(matrix2Ptr, noRow);
-	freeMatrixMem(matrixSumPtr, noRow);
-	freeMatrixMem(matrixDiffPtr, noRow);
-
-	return 0;
-}
-
-int **createMatrix(int noRow, int noCol) {
-	int i, **matrixPtr;
-
-	matrixPtr = malloc(noRow * sizeof(int *));
-
-	for (i = 0; i < noRow; i++) {
-		matrixPtr[i] = malloc(noCol * sizeof(int));
-	}
-
-	return matrixPtr;
-}
-
-void inputMatrix(int **matrixPtr, int noRow, int noCol) {
-	int i, j;
-
-	for (i = 0; i < noRow; i++) {
-		for (j = 0; j < noCol; j++) {
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
 			printf("Enter the element for row #%d - column #%d: ", i+1, j+1);
-			scanf("%d", &matrixPtr[i][j]);
+			scanf("%d", &matrix1[i][j]);
 		}
 	}
-}
 
-void matrixSum(int **matrixSumPtr, int **matrix1Ptr, int **matrix2Ptr, int noRow, int noCol) {
-	int i, j;
-
-	for (i = 0; i < noRow; i++) {
-		for (j = 0; j < noCol; j++) {
-			matrixSumPtr[i][j] = matrix1Ptr[i][j] + matrix2Ptr[i][j];
+	puts("For 2nd matrix:");
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			printf("Enter the element for row #%d - column #%d: ", i+1, j+1);
+			scanf("%d", &matrix2[i][j]);
 		}
 	}
-}
 
-void matrixDiff(int **matrixSumPtr, int **matrix1Ptr, int **matrix2Ptr, int noRow, int noCol) {
-	int i, j;
-
-	for (i = 0; i < noRow; i++) {
-		for (j = 0; j < noCol; j++) {
-			matrixSumPtr[i][j] = matrix1Ptr[i][j] - matrix2Ptr[i][j];
+	/* Calculating matrix sum */
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			matrixSum[i][j] = matrix1[i][j] + matrix2[i][j];
 		}
 	}
-}
 
-void printMatrix(int **matrixPtr, int noRow, int noCol) {
-	int i, j;
+	/* Calculating matrix difference */
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			matrixDiff[i][j] = matrix1[i][j] - matrix2[i][j];
+		}
+	}
 
-	for (i = 0; i < noRow; i++) {
-		for (j = 0; j < noCol; j++) {
-			printf("%d\t", matrixPtr[i][j]);
+	/* Displaying the matrix sum */
+	puts("Sum Matrix:");
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			printf("%d\t", matrixSum[i][j]);
 		}
 		puts("");
 	}
-}
 
-void freeMatrixMem(int **matrixPtr, int noRow) {
-	int i;
-
-	for (i = 0; i < noRow; i++) {
-		free(matrixPtr[i]);
+	/* Displaying the matrix difference */
+	puts("Diff Matrix:");
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			printf("%d\t", matrixDiff[i][j]);
+		}
+		puts("");
 	}
-	free(matrixPtr);
+
+	return 0;
 }
