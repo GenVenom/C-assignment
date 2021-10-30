@@ -2,73 +2,54 @@
 
 #include <stdio.h>
 
-#define ARRAYLENGTH 8
-
-void sortArrayAscending(int *array);
-void sortArrayDescending(int *array);
-void swapindex(int *array, int swapToIndex, int swapFromIndex);
-void printArray(int *array);
-
 int main() {
-	int nums[] = {65, 45, 23, 44, 3, 65, 78, 13};
+	int nums[5], i, j, tempIndex, tempNum;
 
-	printf("Original array:\t\t\t");
-	printArray(nums);
+	/* Getting nums input from the user */
+	puts("Enter 5 elements:");
+	for (i = 0; i < 5; i++) {
+		scanf("%d", &nums[i]);
+	}
 
-	sortArrayAscending(nums);
-	printf("Sorted array (Ascending):\t");
-	printArray(nums);
+	/* Ascending and printing the ascended array */
+	for (i = 0; i < 5; i++) {
+		tempIndex = i;
+		for (j = i; j < 5; j++) {
+			if (nums[j] < nums[tempIndex]) {
+				tempIndex = j;
+			}
+		}
 
-	sortArrayDescending(nums);
-	printf("Sorted array (Descending):\t");
-	printArray(nums);
+		// swapping elements
+		tempNum = nums[tempIndex];
+		nums[tempIndex] = nums[i];
+		nums[i] = tempNum;
+	}
+
+	puts("Ascending array:");
+	for (i = 0; i < 5; i++) {
+		printf("%d\n", nums[i]);
+	}
+
+	/* Descending and printing the descended array */
+	for (i = 0; i < 5; i++) {
+		tempIndex = i;
+		for (j = i; j < 5; j++) {
+			if (nums[j] > nums[tempIndex]) {
+				tempIndex = j;
+			}
+		}
+
+		// swapping elements
+		tempNum = nums[tempIndex];
+		nums[tempIndex] = nums[i];
+		nums[i] = tempNum;
+	}
+
+	puts("Descending array:");
+	for (i = 0; i < 5; i++) {
+		printf("%d\n", nums[i]);
+	}
 
 	return 0;
-}
-
-void sortArrayAscending(int *array) {
-	int i, j, smallestIndexTemp;
-
-	for (i = 0; i < ARRAYLENGTH; i++) {
-		smallestIndexTemp = i;
-		for (j = i; j < ARRAYLENGTH; j++) {
-			if (array[j] < array[smallestIndexTemp]) {
-				smallestIndexTemp = j;
-			}
-		}
-		swapindex(array, smallestIndexTemp, i);
-	}
-
-}
-
-void sortArrayDescending(int *array) {
-	int i, j, largestIndexTemp;
-
-	for (i = 0; i < ARRAYLENGTH; i++) {
-		largestIndexTemp = i;
-		for (j = i; j < ARRAYLENGTH; j++) {
-			if (array[j] > array[largestIndexTemp]) {
-				largestIndexTemp = j;
-			}
-		}
-		swapindex(array, largestIndexTemp, i);
-	}
-
-}
-
-void swapindex(int *array, int swapToIndex, int swapFromIndex) {
-	int tempSwap;
-
-	tempSwap = array[swapToIndex];
-	array[swapToIndex] = array[swapFromIndex];
-	array[swapFromIndex] = tempSwap;
-}
-
-void printArray(int *array) {
-	int i;
-
-	for (i = 0; i < ARRAYLENGTH; i++) {
-		printf("%d\t", *(array+i));
-	}
-	puts("");
 }
