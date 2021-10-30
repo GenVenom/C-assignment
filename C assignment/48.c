@@ -9,12 +9,11 @@ struct student {
 	float marks;
 };
 
-void printDetails(struct student std[]);
-
 int main() {
 	struct student stu[5];
 	int i;
 
+	/* Getting info about students from the user */
 	for (i = 0; i < 5; i++) {
 		printf("=== For student #%d ===\n", i+1);
 		printf("Name of the student? ");
@@ -25,16 +24,9 @@ int main() {
 		scanf("%f", &stu[i].marks);
 		getchar();
 	}
-
 	puts("");
-	printDetails(stu);
 
-	return 0;
-}
-
-void printDetails(struct student stu[]) {
-	int i;
-
+	/* Printing details of students obtaining marks greater than 80 */
 	for (i = 0; i < 5; i++) {
 		if (stu[i].marks > 80) {
 			printf("=== Details of student #%d ===\n", i+1);
@@ -42,4 +34,6 @@ void printDetails(struct student stu[]) {
 			printf("Age: %d\n", stu[i].roll);
 		}
 	}
+
+	return 0;
 }

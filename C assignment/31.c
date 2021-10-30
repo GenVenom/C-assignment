@@ -5,7 +5,7 @@
 void towerOfHanoi(int numberOfDisks, char rodSource, char rodDist, char rodAux);
 
 int main() {
-	int numberOfDisks = 4;
+	int numberOfDisks = 3;
 	char rodNames[] = {'A', 'B', 'C'};
 
 	towerOfHanoi(numberOfDisks, rodNames[0], rodNames[2], rodNames[1]);

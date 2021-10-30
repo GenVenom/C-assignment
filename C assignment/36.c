@@ -1,93 +1,42 @@
 /* WAP to read order of matrix and its elements. Find transpose matrix of the
  * matrix */
 
-/* One may prefer 36-alternative.c */
-
 #include <stdio.h>
 #include <stdlib.h>
 
-int **createMatrix(int noRow, int noCol);
-void inputMatrix(int **matrixPtr, int noRow, int noCol);
-void transMatrix(int **matrixOrigPtr, int **matrixTransPtr, int noOrigRow, int noOrigCol);
-void printMatrix(int **matrixPtr, int noRow, int noCol);
-void freeMatrixMem(int **matrixPtr, int noRow);
-
 int main() {
-	int i, j;
-	int noRow, noCol, **matrixOrigPtr, **matrixTransPtr;
+	int m, n, i, j;
 
+	/* Getting input about no of rows and columns */
 	printf("Enter the number of rows and columns you want to enter: ");
-	scanf("%d %d", &noRow, &noCol);
+	scanf("%d %d", &m, &n);
 
-	matrixOrigPtr = createMatrix(noRow, noCol);
-	matrixTransPtr = createMatrix(noCol, noRow);
+	int inputMatrix[m][n], transMatrix[n][m];
 
-	inputMatrix(matrixOrigPtr, noRow, noCol);
-
-	transMatrix(matrixOrigPtr, matrixTransPtr, noRow, noCol);
-
-	puts("");
-	puts("Original matrix:");
-	printMatrix(matrixOrigPtr, noRow, noCol);
-
-	puts("Transpose matrix:");
-	printMatrix(matrixTransPtr, noCol, noRow);
-
-	freeMatrixMem(matrixOrigPtr, noRow);
-	freeMatrixMem(matrixTransPtr, noRow);
-
-	return 0;
-}
-
-int **createMatrix(int noRow, int noCol) {
-	int i, **matrixPtr;
-
-	matrixPtr = malloc(noRow * sizeof(int *));
-
-	for (i = 0; i < noRow; i++) {
-		matrixPtr[i] = malloc(noCol * sizeof(int));
-	}
-
-	return matrixPtr;
-}
-
-void inputMatrix(int **matrixPtr, int noRow, int noCol) {
-	int i, j;
-
-	for (i = 0; i < noRow; i++) {
-		for (j = 0; j < noCol; j++) {
+	/* Filling data in first and second matrixes */
+	puts("Input matrix:");
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
 			printf("Enter the element for row #%d - column #%d: ", i+1, j+1);
-			scanf("%d", &matrixPtr[i][j]);
+			scanf("%d", &inputMatrix[i][j]);
 		}
 	}
-}
 
-void transMatrix(int **matrixOrigPtr, int **matrixTransPtr, int noOrigRow, int noOrigCol) {
-	int i, j;
-
-	for (i = 0; i < noOrigRow; i++) {
-		for (j = 0; j < noOrigCol; j++) {
-			matrixTransPtr[j][i] = matrixOrigPtr[i][j];
+	/* Finding out the transpose matrix */
+	for (i = 0; i < m; i++) {
+		for (j = 0; j < n; j++) {
+			transMatrix[j][i] = inputMatrix[i][j];
 		}
 	}
-}
 
-void printMatrix(int **matrixPtr, int noRow, int noCol) {
-	int i, j;
-
-	for (i = 0; i < noRow; i++) {
-		for (j = 0; j < noCol; j++) {
-			printf("%d\t", matrixPtr[i][j]);
+	/* Printing out the transpose matrix */
+	puts("Transpose matrix:");
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < m; j++) {
+			printf("%d\t", transMatrix[i][j]);
 		}
 		puts("");
 	}
-}
 
-void freeMatrixMem(int **matrixPtr, int noRow) {
-	int i;
-
-	for (i = 0; i < noRow; i++) {
-		free(matrixPtr[i]);
-	}
-	free(matrixPtr);
+	return 0;
 }

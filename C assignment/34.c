@@ -4,26 +4,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void evenOddSum(int numberOfInputs, int nums[]);
-
 int main() {
-	int numberOfInputs, *nums;
+	int numberOfInputs, i, evenSum = 0, oddSum = 0;
 
+	/* Getting input about array size */
 	printf("How many numbers do you want to enter? ");
 	scanf("%d", &numberOfInputs);
 
-	nums = malloc(numberOfInputs * sizeof(int));
+	int nums[numberOfInputs];
 
-	evenOddSum(numberOfInputs, nums);
-
-	free(nums);
-
-	return 0;
-}
-
-void evenOddSum(int numberOfInputs, int nums[]) {
-	int i, evenSum = 0, oddSum = 0;
-
+	/* Filling out the array and finding the even, odd sum */
 	for (i = 0; i < numberOfInputs; i++) {
 		printf("Enter the number #%d: ", i+1);
 		scanf("%d", &nums[i]);
@@ -35,5 +25,8 @@ void evenOddSum(int numberOfInputs, int nums[]) {
 		}
 	}
 
+	/* Printing even and odd sum */
 	printf("Even sum: %d, Odd sum: %d\n", evenSum, oddSum);
+
+	return 0;
 }
